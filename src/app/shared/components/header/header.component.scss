@@ -1,3 +1,27 @@
-.admin{
-    font-size: 13px;
+.title-container {
+  display: grid;
+  grid-template-columns: auto 1fr auto; /* Ajustar tamaño  */
+  align-items: center;
+}
+
+.logo-container {
+  grid-column: 1; 
+}
+
+.titles {
+  grid-column: 2; 
+}
+
+.ion-toolbar[slot="end"] {
+  justify-content: flex-end;
+}
+
+.logo-img {
+  width: 60px;
+  height: 60px;
+  margin-right: 10px;
+}
+
+.admin {
+  font-size: 13px;
 }

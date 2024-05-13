@@ -1,12 +1,26 @@
 <ion-header class="ion-no-border">
   <ion-toolbar color="primary">
-<ion-buttons slot="start">
-  <ion-back-button *ngIf="backButton" [defaultHref]="backButton"></ion-back-button>
-</ion-buttons>
+    <!------ Back Button ------>
+    <ion-buttons slot="start">
+      <ion-back-button *ngIf="backButton" [defaultHref]="backButton"></ion-back-button>
+    </ion-buttons>
 
     <ion-title> 
-      <strong>{{title}}</strong>
-      <div class="admin">B O O K S W A P</div>
+      <div class="title-container">
+        <div class="logo-container">
+          <img src="assets/icon/logo-tab-2.png" alt="Logo" class="logo-img">
+        </div>
+        <div class="titles">
+          <strong>{{title}}</strong>
+          <div class="admin">B O O K S W A P</div>
+        </div>
+      </div>
     </ion-title>
+    <!------ Back Button ------>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="isModal" (click)="dismissModal()">
+        <ion-icon name="close-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
-</ion-header> 
+</ion-header>

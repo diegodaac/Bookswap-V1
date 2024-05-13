@@ -1,11 +1,10 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>home</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header title="Inicio"></app-header>
 
-<ion-content [fullscreen]="true">
-  <ion-button (click)="signOut()">
-    Cerrar Sesion
-  </ion-button>
+<ion-content>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addUpdateBook()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
 </ion-content>
