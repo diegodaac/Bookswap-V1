@@ -4,12 +4,12 @@
         <form [formGroup] = "form" class="auth-form" (ngSubmit)="submit()" (keypress.enter)="submit()">
 
             <app-logo></app-logo>
-
+            <!----------- Input Email ------------> 
             <app-custom-input
             autocomplete="email"
             [control]="form.controls.email"
             type="email"
-            Contraseña="Correo: "
+            label="Correo: "
             icon="mail-outline"></app-custom-input>
 
             <!-- Validadores del txt correo -->
@@ -17,12 +17,12 @@
                 <div *ngIf="form.controls.email.errors?.['required']">El correo es requerido</div>
                 <div *ngIf="form.controls.email.errors?.['email']">Ingrese un correo valido</div>
             </div>
-    
+            <!----------- Input Password ------------> 
             <app-custom-input 
             icon="lock-closed-outline"
             [control]="form.controls.password"
             type="password"
-            label="Hola"></app-custom-input>
+            label="Contrasena"></app-custom-input>
 
             <!-- Validadores del txt password -->
             <div class="validators" *ngIf="form.controls.password.errors && form.controls.password.touched">
@@ -30,7 +30,7 @@
             </div>
 
             <p class="ion-text-end, fgtPassword" routerLink="forgot-password">Olvidaste tu contraseña?</p>
-
+            
             <ion-button expand="block" mode="ios" class="submit" type="submit" [disabled]="form.invalid"> 
                 Ingresar
                 <ion-icon slot="end" name="log-in-outline"></ion-icon>
@@ -40,8 +40,6 @@
                 Regístrate
                 <ion-icon slot="end" name="person-add-outline"></ion-icon>
             </ion-button>
-
-
         </form>
     </div>
     

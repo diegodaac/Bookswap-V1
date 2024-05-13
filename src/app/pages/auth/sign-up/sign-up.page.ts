@@ -13,9 +13,10 @@ export class SignUpPage implements OnInit {
 
   /* ======FORM GROUP======= */
   form = new FormGroup({
+    uid: new FormControl(''),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
-    name: new FormControl('', [Validators.required, Validators.minLength[3]])
+    name: new FormControl('', [Validators.required, Validators.minLength(3)])
   });
 
   firebaseSvc = inject(FirebaseService);
@@ -32,7 +33,42 @@ export class SignUpPage implements OnInit {
         .signUp(this.form.value as user)
         .then(async res => {
           await this.firebaseSvc.updateUser(this.form.value.name);
-          console.log(res);
+          let uid = res.user.uid;
+          this.form.controls.uid.setValue(uid);
+          this.setUserInfo(uid);
+        })
+        .catch((error) => {
+          console.log(error);
+
+          this.utilsSvc.presentToast({
+            message: error.message,
+            duration: 2500,
+            color: 'primary',
+            position: 'middle',
+            icon:'alert-circle-outline'
+          });
+
+        })
+        .finally(() => {
+          loading.dismiss();
+        });
+    }
+  }
+
+  async setUserInfo(uid: string) {
+    if (this.form.valid) {
+      const loading = await this.utilsSvc.loading();
+      await loading.present();
+      
+      let path= 'users/${uid}';
+      delete this.form.value.password;
+
+      this.firebaseSvc
+        .setDocument(path, this.form.value)
+        .then(async res => {
+          this.utilsSvc.saveInLocalStorage('user', this.form.value);
+          this.utilsSvc.routerLink('/main/home');
+          this.form.reset();
         })
         .catch((error) => {
           console.log(error);
