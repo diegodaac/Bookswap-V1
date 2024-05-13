@@ -1,4 +1,89 @@
-<app-header [isModal]="true" title="Agregar Producto"></app-header>
+<app-header [isModal]="true" title="Agregar Libro"></app-header>
 <ion-content>
+    <form [formGroup] = "form" class="ion-padding ion-text-center" (ngSubmit)="submit()" (keypress.enter)="submit()">
+        <!-- Si existe la Imagen -->
+        <ion-avatar *ngIf="form.value.image">
+            <img title="Imagen Libro" [src]="form.value.image" />
+        </ion-avatar>
+
+        <!-- Si NO existe la Imagen -->
+        <ion-icon class="image-icon" name="image-outline" *ngIf="!form.value.image"></ion-icon>
+        <br>
+        
+        <!-- Seleccionar o tomar foto Libro -->
+        <ion-button (click)="takeImage()" size="small" shape="round" mode="ios">
+            <ion-icon slot="start" name="camera-outline"></ion-icon>Captura la Foto
+        </ion-button>
+        <!-- Input ISBN -->
+        <app-custom-input
+        [control]="form.controls.isbn"
+        type="text"
+        label="ISBN: "
+        icon="library-outline"></app-custom-input>
+
+        <!-- Validadores del txt ISBN -->
+        <div class="validators" *ngIf="form.controls.isbn.errors && form.controls.isbn.touched">
+            <div *ngIf="form.controls.isbn.errors?.['required']">El ISBN es requerido</div>
+            <div *ngIf="form.controls.isbn.errors?.['minlenght']">El ISBN debe tener al menos 13 caracteres</div>
+        </div>
+
+        <!-- Input Nombre Libro -->
+        <app-custom-input
+        [control]="form.controls.name"
+        type="name"
+        label="Nombre Libro: "
+        icon="book-outline"></app-custom-input>
+
+        <!-- Validadores del txt Nombre -->
+        <div class="validators" *ngIf="form.controls.name.errors && form.controls.name.touched">
+            <div *ngIf="form.controls.name.errors?.['required']">El nombre es requerido</div>
+            <div *ngIf="form.controls.name.errors?.['minlenght']">El nombre debe tener al menos 4 caracteres</div>
+        </div>
+
+        <!-- Input Autor -->
+        <app-custom-input
+        [control]="form.controls.author"
+        type="text"
+        label="Nombre Autor: "
+        icon="person-circle-outline"></app-custom-input>
+
+        <!-- Validadores del txt Autor -->
+        <div class="validators" *ngIf="form.controls.author.errors && form.controls.author.touched">
+            <div *ngIf="form.controls.author.errors?.['required']">El nombre de autor es requerido</div>
+            <div *ngIf="form.controls.author.errors?.['minlenght']">El nombre debe tener al menos 3 caracteres</div>
+        </div>
+
+        <!-- Input Editorial -->
+        <app-custom-input
+        [control]="form.controls.editorial"
+        type="text"
+        label="Nombre Editorial: "
+        icon="earth-outline"></app-custom-input>
+
+        <!-- Validadores del txt Editorial -->
+        <div class="validators" *ngIf="form.controls.editorial.errors && form.controls.editorial.touched">
+            <div *ngIf="form.controls.editorial.errors?.['required']">El nombre de editorial es requerido</div>
+            <div *ngIf="form.controls.editorial.errors?.['minlenght']">La editorial debe tener al menos 3 caracteres</div>
+        </div>
+
+        <!-- Input Estado Libro -->
+        <app-custom-input
+        [control]="form.controls.bookCondition"
+        type="text"
+        label="Condición del Libro: "
+        icon="pencil-outline"></app-custom-input>
+
+        <!-- Validadores del txt Editorial -->
+        <div class="validators" *ngIf="form.controls.bookCondition.errors && form.controls.bookCondition.touched">
+            <div *ngIf="form.controls.bookCondition.errors?.['required']">Describa el estado del libro</div>
+            <div *ngIf="form.controls.bookCondition.errors?.['minlenght']">La descripción debe tener al menos 4 caracteres</div>
+        </div>
+
+
+        <ion-button mode="ios" class="ion-margin" type="submit" [disabled]="form.invalid"> 
+          Agregar Libro
+          <ion-icon slot="end" name="checkmark-circle-outline"></ion-icon>
+        </ion-button>
+    </form>
 
 </ion-content>
