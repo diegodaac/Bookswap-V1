@@ -9,7 +9,7 @@ import { FormControl } from '@angular/forms';
 export class CustomInputComponent  implements OnInit {
   @Input() control!: FormControl;
   @Input() type!: string;
-  @Input() Clave!:string; /* ERROR CARACTER ESPECIAL */
+  @Input() label!:string; /* ERROR CARACTER ESPECIAL */
   @Input() autocomplete!: string;
   @Input() icon!: string;
 
