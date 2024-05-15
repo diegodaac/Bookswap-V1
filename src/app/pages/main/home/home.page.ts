@@ -54,6 +54,24 @@ export class HomePage implements OnInit {
     if(success) this.getLibros();
   }
 
+  /*------ Confirmación de Borrar Libro  ---------- */
+  async confirmDeleteBook(libro: Libro) {
+    this.utilsSvc.presentAlert({
+      header: 'Eliminar Libro',
+      message: '¿Deseas eliminar este libro?',
+      mode: 'ios',
+      buttons: [
+        {
+          text: 'Cancelar',
+        }, {
+          text: 'Si, eliminar',
+          handler: () => {
+            this.deleteLibro(libro);
+          }
+        }
+      ]
+    });
+  }
 
  /*--------- Borrar Libro -------- */
 async deleteLibro(libro: Libro) {
