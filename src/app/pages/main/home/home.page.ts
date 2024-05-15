@@ -17,6 +17,8 @@ export class HomePage implements OnInit {
 
   libros: Libro[] = [];
 
+  loading: boolean = false;
+
   ngOnInit() {
   }
 
@@ -32,10 +34,13 @@ export class HomePage implements OnInit {
   getLibros(){
     let path = `users/${this.user().uid}/books`;
 
+    this.loading= true;
+
     let sub = this.firebaseSvc.getCollectionData(path).subscribe({
       next: (res:any) =>{
         console.log(res);
         this.libros= res;
+        this.loading= false;
         sub.unsubscribe();
       }
     })
