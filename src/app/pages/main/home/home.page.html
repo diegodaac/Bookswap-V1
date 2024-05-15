@@ -45,6 +45,12 @@
       </ion-item>
   </ion-list>
 
+  <!-- NO HAY LIBROS DISPONIBLES -->
+  <div *ngIf="!loading && !libros.length" class="empty">
+    <ion-icon name="library-outline"></ion-icon>
+    <h3>No hay libros disponibles</h3>
+  </div>
+
   <!------- Botón Agregar Libro ---------->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="addUpdateBook()">
