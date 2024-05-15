@@ -1,9 +1,10 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from 'firebase/auth';
 import { user } from 'src/app/models/user.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
+import { Libro } from '../../../models/libros.model';
 
 @Component({
   selector: 'app-add-update-books',
@@ -11,6 +12,8 @@ import { UtilsService } from 'src/app/services/utils.service';
   styleUrls: ['./add-update-books.component.scss'],
 })
 export class AddUpdateBooksComponent  implements OnInit {
+
+  @Input() libro: Libro; 
 
 /* ======FORM GROUP======= */
 form = new FormGroup({
@@ -31,6 +34,9 @@ user= {} as user;
 
 ngOnInit() {
   this.user = this.utilsSvc.getFromLocalStorage('user');
+  
+  if(this.libro) this.form.setValue(this.libro);
+
 }
 
 
@@ -40,9 +46,16 @@ async takeImage(){
   this.form.controls.image.setValue(dataUrl);
 }
 
-async submit() {
-  if (this.form.valid) {
+submit(){
+  if (this.form.valid){
+    if(this.libro) this.updateLibro();
+    else this.crearLibro();
+  }
 
+}
+
+/*--------- Crear Libro-------- */
+async crearLibro() {
     let path = `users/${this.user.uid}/books`;
 
     const loading = await this.utilsSvc.loading();
@@ -88,6 +101,59 @@ async submit() {
       .finally(() => {
         loading.dismiss();
       });
-  }
+  
+}
+/*--------- Actualizar Libro -------- */
+async updateLibro() {
+
+    let path = `users/${this.user.uid}/books/${this.libro.id}`;
+
+    const loading = await this.utilsSvc.loading();
+    await loading.present();
+
+    /*-------Si cambia imagen se sube nueva  y obtiene  URL------ */
+    if(this.form.value.image !== this.libro.image){
+      let dataUrl = this.form.value.image;
+      let imagePath= await this.firebaseSvc.getFilePath(this.libro.image);
+      let imageUrl= await this.firebaseSvc.uploadImage(imagePath,dataUrl);
+      this.form.controls.image.setValue(imageUrl);
+      
+    }
+    
+
+    delete this.form.value.id;
+
+    this.firebaseSvc
+      .updateDocument(path, this.form.value)
+      .then(async res => {
+        
+        this.utilsSvc.dismissModal({success: true});
+        
+        /* toast */
+        this.utilsSvc.presentToast({
+          message: 'Libro actualizado exitosamente!',
+          duration: 2000,
+          color: 'success',
+          position: 'middle',
+          icon:'checkmark-circle-outline'
+        });
+
+
+      })
+      .catch((error) => {
+        console.log(error);
+
+        this.utilsSvc.presentToast({
+          message: error.message,
+          duration: 2500,
+          color: 'primary',
+          position: 'middle',
+          icon:'alert-circle-outline'
+        });
+
+      })
+      .finally(() => {
+        loading.dismiss();
+      });
 }
 }

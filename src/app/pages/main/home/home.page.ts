@@ -44,11 +44,14 @@ export class HomePage implements OnInit {
   
 
   /* ======= Agregar o Actualizar Libro =======*/
-  addUpdateBook(){
-    this.utilsSvc.presentModal({
+  async addUpdateBook(libro?: Libro){
+    let success = await this.utilsSvc.presentModal({
       component: AddUpdateBooksComponent,
-      cssClass: 'add-update-modal'
+      cssClass: 'add-update-modal',
+      componentProps: { libro}
     })
+
+    if(success) this.getLibros();
   }
 
 }

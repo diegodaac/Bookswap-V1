@@ -9,7 +9,7 @@ import {
 } from 'firebase/auth';
 import { user } from '../models/user.model';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { getFirestore,setDoc, doc, getDoc,addDoc,collection,collectionData,query } from '@angular/fire/firestore'
+import { getFirestore,setDoc, doc, getDoc,addDoc,collection,collectionData,query, updateDoc } from '@angular/fire/firestore'
 import { UtilsService } from './utils.service';
 import {AngularFireStorage} from '@angular/fire/compat/storage';
 import {getStorage, uploadString, ref, getDownloadURL} from 'firebase/storage';
@@ -56,6 +56,8 @@ export class FirebaseService {
   }
 
   /*===================== Base de Datos ===============*/
+
+
   /*---------  Obtener Datos de una Colección -----------*/
   getCollectionData(path: string, collectionQuery?: any){
     const ref = collection(getFirestore(), path);
@@ -66,6 +68,11 @@ export class FirebaseService {
   /*---------  Set Document -----------*/
   setDocument(path: string, data: any){
     return setDoc(doc(getFirestore(), path), data);
+  }
+
+  /*---------  Actualizar Document -----------*/
+  updateDocument(path: string, data: any){
+    return updateDoc(doc(getFirestore(), path), data);
   }
 
   /*---------  Obtener Document -----------*/
@@ -85,7 +92,12 @@ export class FirebaseService {
     return uploadString(ref(getStorage(), path), data_url, 'data_url').then(() => {
       return getDownloadURL(ref(getStorage(),path))
     })
+  }
 
+  /*--------- Obtener ruta y url de imagen -----------*/
+
+  async getFilePath(url: string){
+    return ref(getStorage(), url).fullPath
   }
 
 
