@@ -1,6 +1,20 @@
 <app-header title="Inicio"></app-header>
 <ion-content>
-  <h1 class="title-books">Lista de Libro Activos: </h1>
+  <!-- Refresher  -->
+<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+  <ion-refresher-content></ion-refresher-content>
+</ion-refresher>
+
+  <!-- <h1 class="title-books">Lista de Libro Activos: </h1> -->
+
+  <!-- Card Libros Activos -->
+  <ion-card mode="ios" color="success" class="d-flex-center ion-text-center" *ngIf="!loading && libros.length">
+    <div>
+      <h3>{{libros.length}}</h3>
+      <p class="t-libros-activos">Libros Activos: </p>
+    </div>
+  </ion-card>
+
   <!------- Lista de Libros --------->
   <ion-list *ngIf="!loading">
     <ion-item-sliding class="product-item" *ngFor="let l of libros">

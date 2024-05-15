@@ -30,6 +30,13 @@ export class HomePage implements OnInit {
     this.getLibros();
   }
 
+  doRefresh(event) {
+    setTimeout(() => {
+      this.getLibros();
+      event.target.complete();
+    }, 1000);
+  }
+
   /* ------------Obtener Lista de libros ------------------ */
   getLibros(){
     let path = `users/${this.user().uid}/books`;
