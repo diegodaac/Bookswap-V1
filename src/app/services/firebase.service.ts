@@ -9,10 +9,10 @@ import {
 } from 'firebase/auth';
 import { user } from '../models/user.model';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { getFirestore,setDoc, doc, getDoc,addDoc,collection,collectionData,query, updateDoc } from '@angular/fire/firestore'
+import { getFirestore,setDoc, doc, getDoc,addDoc,collection,collectionData,query, updateDoc, deleteDoc } from '@angular/fire/firestore'
 import { UtilsService } from './utils.service';
 import {AngularFireStorage} from '@angular/fire/compat/storage';
-import {getStorage, uploadString, ref, getDownloadURL} from 'firebase/storage';
+import {getStorage, uploadString, ref, getDownloadURL, deleteObject} from 'firebase/storage';
 
 @Injectable({
   providedIn: 'root',
@@ -75,6 +75,11 @@ export class FirebaseService {
     return updateDoc(doc(getFirestore(), path), data);
   }
 
+  /*---------  Borrar Document -----------*/
+  deleteDocument(path: string){
+    return deleteDoc(doc(getFirestore(), path));
+  }
+
   /*---------  Obtener Document -----------*/
   async getDocument(path: string){
     return (await getDoc(doc(getFirestore(), path))).data();
@@ -98,6 +103,11 @@ export class FirebaseService {
 
   async getFilePath(url: string){
     return ref(getStorage(), url).fullPath
+  }
+
+  /*--------- Eliminar Archivo -----------*/
+  deleteFile(path: string){
+    return deleteObject(ref(getStorage(),path));
   }
 
 

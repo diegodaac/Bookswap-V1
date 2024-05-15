@@ -54,4 +54,49 @@ export class HomePage implements OnInit {
     if(success) this.getLibros();
   }
 
+
+ /*--------- Borrar Libro -------- */
+async deleteLibro(libro: Libro) {
+
+  let path = `users/${this.user().uid}/books/${libro.id}`;
+
+  const loading = await this.utilsSvc.loading();
+  await loading.present();
+
+  let imagePath= await this.firebaseSvc.getFilePath(libro.image);
+  await this.firebaseSvc.deleteFile(imagePath);
+
+
+  this.firebaseSvc
+    .deleteDocument(path)
+    .then(async res => { 
+
+      this.libros = this.libros.filter(l => l.id !== libro.id);
+      /* toast */
+      this.utilsSvc.presentToast({
+        message: 'Libro eliminado exitosamente!',
+        duration: 2000,
+        color: 'success',
+        position: 'middle',
+        icon:'checkmark-circle-outline'
+      });
+
+
+    })
+    .catch((error) => {
+      console.log(error);
+
+      this.utilsSvc.presentToast({
+        message: error.message,
+        duration: 2500,
+        color: 'primary',
+        position: 'middle',
+        icon:'alert-circle-outline'
+      });
+
+    })
+    .finally(() => {
+      loading.dismiss();
+    });
 }
+}/* FIN */

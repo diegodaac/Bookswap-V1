@@ -1,7 +1,6 @@
 <app-header title="Inicio"></app-header>
-
 <ion-content>
-
+  <h1 class="title-books">Lista de Libro Activos: </h1>
   <ion-list>
     <ion-item-sliding class="product-item" *ngFor="let l of libros">
       <ion-item>
@@ -23,8 +22,9 @@
         <ion-item-option (click)="addUpdateBook(l)">
           <ion-icon class="option-btn" name="create-outline"></ion-icon>
         </ion-item-option>
+
         <!-- Eliminar -->
-        <ion-item-option color="danger">
+        <ion-item-option (click)="deleteLibro(l)" color="danger">
           <ion-icon class="option-btn" name="trash-outline"></ion-icon>
         </ion-item-option>
       </ion-item-options>

@@ -34,7 +34,7 @@ user= {} as user;
 
 ngOnInit() {
   this.user = this.utilsSvc.getFromLocalStorage('user');
-  
+
   if(this.libro) this.form.setValue(this.libro);
 
 }
@@ -156,4 +156,4 @@ async updateLibro() {
         loading.dismiss();
       });
 }
-}
+} /* FIN */
