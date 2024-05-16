@@ -60,7 +60,7 @@ export class SignUpPage implements OnInit {
       const loading = await this.utilsSvc.loading();
       await loading.present();
       
-      let path= 'users/${uid}';
+      let path= `users/${uid}`;
       delete this.form.value.password;
 
       this.firebaseSvc

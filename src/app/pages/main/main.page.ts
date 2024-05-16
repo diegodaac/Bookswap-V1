@@ -1,5 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { user } from 'src/app/models/user.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
@@ -27,6 +28,12 @@ export class MainPage implements OnInit {
       if(event?.url) this.currentPath = event.url;
     })
   }
+
+
+  user():user{
+    return this.utilsSvc.getFromLocalStorage('user');
+  }
+
 
   /* Cerrar Sesión */
   signOut(){

@@ -2,7 +2,10 @@
   <app-header></app-header>
 
 
-  <ion-content>
+  <ion-content class="ion-text-center">
+    <ion-icon class="avatar-icon" name="person-circle-outline"></ion-icon>
+    <h4>{{user()?.name}}</h4>
+
     <ion-menu-toggle autoHide="false" *ngFor="let p of pages">
       <ion-item [ngClass]="{'active': currentPath === p.url}" [routerLink]="p.url" routerDirection="root" detail>
         <ion-icon slot="start" [name]="p.icon"></ion-icon>
