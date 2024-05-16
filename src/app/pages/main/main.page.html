@@ -3,7 +3,10 @@
 
 
   <ion-content class="ion-text-center">
-    <ion-icon class="avatar-icon" name="person-circle-outline"></ion-icon>
+    <ion-avatar>
+      <img *ngIf="user()?.image" title="Foto Perfil" [src]="user()?.image" />
+      <ion-icon *ngIf="!user()?.image" class="empty-icon" name="person-circle-outline"></ion-icon>
+    </ion-avatar>
     <h4>{{user()?.name}}</h4>
 
     <ion-menu-toggle autoHide="false" *ngFor="let p of pages">
