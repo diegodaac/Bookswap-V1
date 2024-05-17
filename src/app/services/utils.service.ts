@@ -81,4 +81,8 @@ export class UtilsService {
   dismissModal(data?: any){
     return this.modalCtrl.dismiss(data);
   }
+
+  removeFromLocalStorage(key: string) {
+    localStorage.removeItem(key);
+  }
 }

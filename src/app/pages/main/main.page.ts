@@ -37,7 +37,9 @@ export class MainPage implements OnInit {
 
 
   /* Cerrar Sesión */
-  signOut(){
-    this.firebaseSvc.signOut();
+  async signOut() {
+    await this.firebaseSvc.signOut();
+    this.utilsSvc.removeFromLocalStorage('user'); //Elimina cualquier dato de usuario almacenado
+    window.location.reload();
   }
 }/* FIN */
