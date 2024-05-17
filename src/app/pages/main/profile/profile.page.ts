@@ -5,6 +5,7 @@ import { user } from 'src/app/models/user.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { Libro } from '../../../models/libros.model';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,10 +15,16 @@ import { Libro } from '../../../models/libros.model';
 })
 export class ProfilePage implements OnInit {
 
+  constructor(private router: Router) {}
+
   firebaseSvc = inject(FirebaseService);
   utilsSvc = inject(UtilsService);
 
   ngOnInit() {
+  }
+
+  openTerms() { //Abrir términos y condiciones
+    this.router.navigate(['/terms']);
   }
 
   user():user{
@@ -25,49 +32,49 @@ export class ProfilePage implements OnInit {
   }
 
   /*-------------- Tomar o Seleccionar Foto------------ */
-async takeImage(){
-  let user= this.user();
-  let path = `users/${user.uid}`;
+  async takeImage(){
+    let user= this.user();
+    let path = `users/${user.uid}`;
 
-  const dataUrl= (await this.utilsSvc.takePicture('Foto de Perfil')).dataUrl;
+    const dataUrl= (await this.utilsSvc.takePicture('Foto de Perfil')).dataUrl;
 
-  const loading = await this.utilsSvc.loading();
-  await loading.present();
+    const loading = await this.utilsSvc.loading();
+    await loading.present();
 
-  let imagePath= `${user.uid}/profile`;
-  user.image = await this.firebaseSvc.uploadImage(imagePath,dataUrl);
+    let imagePath= `${user.uid}/profile`;
+    user.image = await this.firebaseSvc.uploadImage(imagePath,dataUrl);
 
-  this.firebaseSvc
-      .updateDocument(path, {image: user.image})
-      .then(async res => {
-        
-        this.utilsSvc.saveInLocalStorage('user',user);
+    this.firebaseSvc
+        .updateDocument(path, {image: user.image})
+        .then(async res => {
+          
+          this.utilsSvc.saveInLocalStorage('user',user);
 
-        /* toast */
-        this.utilsSvc.presentToast({
-          message: 'Foto actualizada exitosamente!',
-          duration: 2000,
-          color: 'success',
-          position: 'middle',
-          icon:'checkmark-circle-outline'
+          /* toast */
+          this.utilsSvc.presentToast({
+            message: 'Foto actualizada exitosamente!',
+            duration: 2000,
+            color: 'success',
+            position: 'middle',
+            icon:'checkmark-circle-outline'
+          });
+
+
+        })
+        .catch((error) => {
+          console.log(error);
+
+          this.utilsSvc.presentToast({
+            message: error.message,
+            duration: 2500,
+            color: 'primary',
+            position: 'middle',
+            icon:'alert-circle-outline'
+          });
+
+        })
+        .finally(() => {
+          loading.dismiss();
         });
-
-
-      })
-      .catch((error) => {
-        console.log(error);
-
-        this.utilsSvc.presentToast({
-          message: error.message,
-          duration: 2500,
-          color: 'primary',
-          position: 'middle',
-          icon:'alert-circle-outline'
-        });
-
-      })
-      .finally(() => {
-        loading.dismiss();
-      });
-}
+  }
 }
