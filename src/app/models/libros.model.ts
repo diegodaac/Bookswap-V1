@@ -6,5 +6,6 @@ export interface Libro
         name: string,
         author:string,
         editorial: string ,
-        id: string
+        id: string, 
+        estatus: string
     }

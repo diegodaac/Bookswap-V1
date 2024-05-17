@@ -79,6 +79,19 @@
             <div *ngIf="form.controls.bookCondition.errors?.['minlenght']">La descripción debe tener al menos 4 caracteres</div>
         </div>
 
+        <!-- Campo de selección para Estatus con estilos -->
+    <ion-item class="round-item" lines="none" mode="ios">
+        <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+        <ion-label>Estado:</ion-label>
+        <ion-select [formControl]="form.controls.estatus" placeholder="Seleccione un estado" interface="popover">
+          <ion-select-option value="publico">Público</ion-select-option>
+          <ion-select-option value="privado">Privado</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <div class="validators" *ngIf="form.controls.estatus.errors && form.controls.estatus.touched">
+        <div *ngIf="form.controls.estatus.errors?.['required']">El estado es requerido</div>
+      </div>
+
 
         <ion-button mode="ios" class="ion-margin" type="submit" [disabled]="form.invalid"> 
           {{libro ? 'Editar Libro ' : 'Agregar Libro'}}

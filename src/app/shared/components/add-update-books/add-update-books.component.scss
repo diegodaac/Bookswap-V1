@@ -9,3 +9,28 @@ ion-avatar{
     --border-radius: 15px;
     margin: 0 auto; 
 }
+
+.round-item {
+    border-radius: 20px;
+    margin-bottom: 16px;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --inner-padding-end: 16px;
+    --inner-padding-start: 16px;
+    --background: #f9f9f9;
+    border: 1px solid #dcdcdc; /* Borde gris */
+  }
+  
+  .round-item ion-select {
+    width: 100%;
+  }
+  
+  .round-item ion-label {
+    margin-left: 8px;
+  }
+  
+  .round-item ion-icon {
+    color: var(--ion-color-primary); /* Color primario */
+    margin-right: 8px;
+  }
+  

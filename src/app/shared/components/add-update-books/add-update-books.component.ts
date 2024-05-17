@@ -23,7 +23,8 @@ form = new FormGroup({
   name: new FormControl('', [Validators.required, Validators.minLength(3)]),
   author: new FormControl('', [Validators.required, Validators.minLength(3)]),
   editorial: new FormControl('', [Validators.required, Validators.minLength(3)]),
-  bookCondition: new FormControl('', [Validators.required, Validators.minLength(4)])
+  bookCondition: new FormControl('', [Validators.required, Validators.minLength(4)]),
+  estatus: new FormControl('', [Validators.required])
 });
 
 firebaseSvc = inject(FirebaseService);

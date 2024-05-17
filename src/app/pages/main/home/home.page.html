@@ -11,7 +11,7 @@
   <ion-card mode="ios" color="success" class="d-flex-center ion-text-center" *ngIf="!loading && libros.length">
     <div>
       <h3>{{libros.length}}</h3>
-      <p class="t-libros-activos">Libros Activos: </p>
+      <p class="t-libros-activos">Mis Libros: </p>
     </div>
   </ion-card>
 
@@ -26,7 +26,8 @@
           <div class="name">{{l.name}}</div>
           <div class="data">
             <strong>Autor: </strong>{{l.author}} <br>
-            <strong>Editorial: </strong>{{l.editorial}}
+            <strong>Editorial: </strong>{{l.editorial}} <br>
+            <strong>Estatus:</strong> {{l.estatus}}
           </div>
         </ion-label>
       </ion-item>

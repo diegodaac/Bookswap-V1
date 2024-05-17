@@ -15,9 +15,14 @@ const routes: Routes = [
       {
         path: 'profile',
         loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
+      },
+      {
+        path: 'foro',
+        loadChildren: () => import('./foro/foro.module').then( m => m.ForoPageModule)
       }
     ]
   },
+  ,
   
 ];
 
