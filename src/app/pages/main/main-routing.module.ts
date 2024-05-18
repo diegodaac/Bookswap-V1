@@ -19,10 +19,13 @@ const routes: Routes = [
       {
         path: 'foro',
         loadChildren: () => import('./foro/foro.module').then( m => m.ForoPageModule)
+      },
+      {
+        path: 'terms',
+        loadChildren: () => import('./terms/terms.module').then( m => m.TermsPageModule)
       }
     ]
   },
-  ,
   
 ];
 
