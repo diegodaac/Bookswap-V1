@@ -85,10 +85,11 @@ export class HomePage implements OnInit {
     });
   }
 
- /*--------- Borrar Libro -------- */
+/*--------- Borrar Libro -------- */
 async deleteLibro(libro: Libro) {
 
-  let path = `users/${this.user().uid}/books/${libro.id}`;
+  let userPath = `users/${this.user().uid}/books/${libro.id}`;
+  let globalPath = `globalBooks/${libro.id}`;
 
   const loading = await this.utilsSvc.loading();
   await loading.present();
@@ -96,10 +97,19 @@ async deleteLibro(libro: Libro) {
   let imagePath= await this.firebaseSvc.getFilePath(libro.image);
   await this.firebaseSvc.deleteFile(imagePath);
 
-
+  // Eliminar el libro de la colección del usuario
   this.firebaseSvc
-    .deleteDocument(path)
+    .deleteDocument(userPath)
     .then(async res => { 
+
+      // Eliminar el libro de la colección global
+      this.firebaseSvc.deleteDocument(globalPath)
+        .then(async res => {
+          console.log('Libro eliminado de la colección global exitosamente!');
+        })
+        .catch((error) => {
+          console.log('Error al eliminar el libro de la colección global:', error);
+        });
 
       this.libros = this.libros.filter(l => l.id !== libro.id);
       /* toast */
@@ -110,7 +120,6 @@ async deleteLibro(libro: Libro) {
         position: 'middle',
         icon:'checkmark-circle-outline'
       });
-
 
     })
     .catch((error) => {
@@ -129,4 +138,6 @@ async deleteLibro(libro: Libro) {
       loading.dismiss();
     });
 }
+
+
 }/* FIN */
