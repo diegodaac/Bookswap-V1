@@ -1,4 +1,68 @@
 <app-header [showMenu]="true" title="Buscar"></app-header>
 <ion-content>
+  <!-- Refresher  -->
+<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   
+    <!-- Card Libros Activos -->
+    <ion-card mode="ios" color="success" class="d-flex-center ion-text-center" *ngIf="!loading && libros.length">
+      <div>
+        <h3>{{libros.length}}</h3>
+        <p class="t-libros-activos">Libros Disponibles: </p>
+      </div>
+    </ion-card>
+  
+   <!------- Lista de Libros --------->
+   <ion-list *ngIf="!loading">
+    <ion-item-sliding class="product-item" *ngFor="let l of libros">
+      <ion-item>
+        <ion-avatar slot="start">
+          <img title="Imagen" [src]="l.image" />
+        </ion-avatar>
+        <ion-label>
+          <div class="name">{{l.name}}</div>
+          <div class="data">
+            <strong>Autor: </strong>{{l.author}} <br>
+            <strong>Editorial: </strong>{{l.editorial}} <br>
+            <strong>Condición:</strong> {{l.bookCondition}}
+          </div>
+        </ion-label>
+      </ion-item>
+
+      <!---------- Opciones ------------>
+      <ion-item-options>
+        <!-- Solicitar Intercambio -->
+        <ion-item-option>
+          <ion-icon class="option-btn" name="swap-horizontal-outline"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  
+    <!-- LOADER -->
+    <ion-list *ngIf="loading">
+        <ion-item class="product-item" *ngFor="let l of [1,1,1,1,1,1]">
+          <ion-avatar slot="start">
+            <ion-skeleton-text animated style="width: 100%; height: 100%"></ion-skeleton-text>
+          </ion-avatar>
+          <ion-label>
+            <div><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></div>
+            <div><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></div>
+          </ion-label>
+        </ion-item>
+    </ion-list>
+  
+    <!-- NO HAY LIBROS DISPONIBLES -->
+    <div *ngIf="!loading && !libros.length" class="empty">
+      <ion-icon name="library-outline"></ion-icon>
+      <h3>No hay libros disponibles</h3>
+    </div>
+  
+    <!------- Botón Agregar Libro ---------->
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button (click)="addUpdateBook()">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
 </ion-content>
