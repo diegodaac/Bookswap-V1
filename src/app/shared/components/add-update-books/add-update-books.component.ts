@@ -5,12 +5,16 @@ import { user } from 'src/app/models/user.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { Libro } from '../../../models/libros.model';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-add-update-books',
   templateUrl: './add-update-books.component.html',
   styleUrls: ['./add-update-books.component.scss'],
 })
+
+
 export class AddUpdateBooksComponent  implements OnInit {
 
   @Input() libro: Libro; 
@@ -34,12 +38,29 @@ get user(): user {
   return this.utilsSvc.getFromLocalStorage('user');
 }
 
+constructor(private http: HttpClient) { }
 
+getBookData(isbn: string) {
+  this.http.get(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`).subscribe((res: any) => {
+    if (res.items && res.items.length > 0) {
+      const bookData = res.items[0].volumeInfo;
+      this.form.controls.name.setValue(bookData.title);
+      this.form.controls.author.setValue(bookData.authors.join(', '));
+      this.form.controls.editorial.setValue(bookData.publisher);
+    }
+  });
+}
 
 ngOnInit() {
-  if(this.libro) this.form.setValue(this.libro);
+  this.form.controls.isbn.valueChanges.subscribe(isbn => {
+    if (isbn && isbn.length === 13) {
+      this.getBookData(isbn);
+    }
+  });
 
+  if(this.libro) this.form.setValue(this.libro);
 }
+
 
 
 /*-------------- Tomar o Seleccionar Foto------------ */

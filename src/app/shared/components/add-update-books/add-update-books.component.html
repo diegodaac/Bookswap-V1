@@ -19,7 +19,9 @@
         [control]="form.controls.isbn"
         type="text"
         label="ISBN"
-        icon="library-outline"></app-custom-input>
+        icon="library-outline"
+        (change)="getBookData(form.controls.isbn.value)"></app-custom-input>
+
 
         <!-- Validadores del txt ISBN -->
         <div class="validators" *ngIf="form.controls.isbn.errors && form.controls.isbn.touched">
