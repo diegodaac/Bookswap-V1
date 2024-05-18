@@ -29,7 +29,11 @@ const routes: Routes = [
         loadChildren: () => import('./comentarios/comentarios.module').then( m => m.ComentariosPageModule)
       }
     ]
+  },  {
+    path: 'landing',
+    loadChildren: () => import('./landing/landing.module').then( m => m.LandingPageModule)
   },
+
 
   
 ];
