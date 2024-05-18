@@ -23,9 +23,14 @@ const routes: Routes = [
       {
         path: 'terms',
         loadChildren: () => import('./terms/terms.module').then( m => m.TermsPageModule)
+      },
+      {
+        path: 'comentarios',
+        loadChildren: () => import('./comentarios/comentarios.module').then( m => m.ComentariosPageModule)
       }
     ]
   },
+
   
 ];
 

@@ -23,10 +23,6 @@ export class ProfilePage implements OnInit {
   ngOnInit() {
   }
 
-  openTerms() { //Abrir términos y condiciones
-    this.router.navigate(['/terms']);
-  }
-
   user():user{
     return this.utilsSvc.getFromLocalStorage('user');
   }
