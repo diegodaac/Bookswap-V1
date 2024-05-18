@@ -10,16 +10,25 @@
     <ion-icon name="camera-outline"></ion-icon>
   </ion-button>
 
-  <h2>{{user().name}}</h2>
+  <h2 *ngIf="!editMode">{{ user().name }}</h2>
 
-  <ion-item button detail>
+  <form *ngIf="editMode" [formGroup]="editNameForm" (ngSubmit)="updateName()">
+    <ion-item>
+      <ion-label position="floating">Nuevo Nombre</ion-label>
+      <ion-input formControlName="name"></ion-input>
+    </ion-item>
+    <ion-button type="submit" [disabled]="editNameForm.invalid">Guardar</ion-button>
+    <ion-button type="button" (click)="cancelEdit()">Cancelar</ion-button>
+  </form>
+
+  <ion-item button detail (click)="toggleEditMode()">
     <ion-icon color="primary" slot="start" name="person-outline"></ion-icon>
     <ion-label>Editar Perfil</ion-label>
   </ion-item>
 
   <ion-item button detail>
     <ion-icon color="primary" slot="start" name="document-outline"></ion-icon>
-    <ion-label routerLink="/main/terms">Terminos y Condiciones</ion-label>
+    <ion-label routerLink="/main/terms">Términos y Condiciones</ion-label>
   </ion-item>
 
 </ion-content>
