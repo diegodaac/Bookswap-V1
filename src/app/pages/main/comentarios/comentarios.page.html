@@ -1,13 +1,24 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>comentarios</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header [showMenu]="true" title="Chat Room"></app-header>
+<ion-content>
+  <div class="chat-header">
+    <h1>Chatea con otros lectores!</h1>
+  </div>
+  <div class="chat-messages-container" #chatMessagesContainer>
+    <ion-list class="chat-list">
+      <ion-item *ngFor="let comentario of comentarios" [ngClass]="{'chat-item-current-user': comentario.usuario === currentUser.name, 'chat-item': comentario.usuario !== currentUser.name}">
+        <ion-label>
+          <h2 class="chat-usuario">{{comentario.usuario}}</h2>
+          <p class="chat-mensaje">{{comentario.mensaje}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">comentarios</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="chat-input-container">
+    <ion-item class="chat-input-item">
+      <ion-input placeholder="Escribe un comentario..." [(ngModel)]="nuevoComentario"></ion-input>
+      <ion-button (click)="enviarComentario()">Enviar</ion-button>
+    </ion-item>
+  </div>
 </ion-content>
+

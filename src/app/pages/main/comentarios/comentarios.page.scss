@@ -1,0 +1,64 @@
+.chat-header {
+    text-align: center;
+    margin-top: 20px;
+    color: #3880ff;
+  }
+  
+  .chat-messages-container {
+    margin-top: 20px;
+    padding: 0 10px;
+    margin-bottom: 70px; /* espacio para el input */
+    overflow-y: auto;
+    flex-grow: 1;
+    height: calc(100% - 140px); /* ajusta la altura para que no se sobreponga */
+  }
+  
+  .chat-item, .chat-item-current-user {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  
+  .chat-item {
+    background-color: #f1f1f1;
+    text-align: left;
+  }
+  
+  .chat-item-current-user {
+    background-color: #d1e7dd;
+    text-align: right;
+    align-self: flex-end;
+  }
+  
+  .chat-usuario {
+    font-weight: bold;
+    color: #222428;
+  }
+  
+  .chat-mensaje {
+    color: #666666;
+  }
+  
+  .chat-input-container {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #ffffff;
+    padding: 10px;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+  }
+  
+  .chat-input-item {
+    display: flex;
+    align-items: center;
+  }
+  
+  .chat-input-item ion-input {
+    flex: 1;
+    margin-right: 10px;
+  }
+  
+  .chat-input-item ion-button {
+    flex-shrink: 0;
+  }
+  

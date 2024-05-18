@@ -14,7 +14,8 @@ export class MainPage implements OnInit {
   pages= [
     {title: 'Inicio', url:'/main/home', icon: 'home-outline'},
     {title: 'Perfil', url:'/main/profile', icon: 'person-outline'},
-    {title:'Buscar', url:'/main/foro', icon:'search-outline'}
+    {title:'Buscar', url:'/main/foro', icon:'search-outline'},
+    {title:'Chat', url:'/main/comentarios', icon:'chatbubbles-outline'}
   ]
 
   router= inject(Router);
