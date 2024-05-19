@@ -1,4 +1,4 @@
-<app-header title="Login"></app-header>
+<app-header backButton="/landing"  title="Login"></app-header>
 <ion-content>
     <div class="d-flex-center">
         <form [formGroup] = "form" class="auth-form" (ngSubmit)="submit()" (keypress.enter)="submit()">
